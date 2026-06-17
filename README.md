@@ -9,7 +9,7 @@ windows sees the virtual devices as real USB controllers (XUSB / HID), while phy
 main uses:
 - physical → virtual bridge with arbitrary transformation in usermode
 - testing and fuzzing of XUSB / HID stacks
-- input replay / scripting for anti-cheat research
+- input replay / scripting 
 
 ## architecture
 
