@@ -1,0 +1,52 @@
+[Version]
+Signature="$WINDOWS NT$"
+Class=System
+ClassGuid={4D36E97D-E325-11CE-BFC1-08002BE10318}
+Provider=%ManufacturerName%
+CatalogFile=GamepadBus.cat
+DriverVer=
+PnpLockdown=1
+
+[DestinationDirs]
+DefaultDestDir = 13
+
+[SourceDisksNames]
+1 = %DiskName%,,,
+
+[SourceDisksFiles]
+GamepadBus.sys = 1,,
+
+[Manufacturer]
+%ManufacturerName%=Standard,NTamd64.10.0...16299
+
+[Standard.NTamd64.10.0...16299]
+%DeviceDesc%=GamepadBus_Device, Root\GamepadBus
+
+[GamepadBus_Device.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+GamepadBus.sys
+
+[GamepadBus_Device.NT.Services]
+AddService = GamepadBus,%SPSVCINST_ASSOCSERVICE%, GamepadBus_Service_Inst
+
+[GamepadBus_Service_Inst]
+DisplayName    = %ServiceDesc%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %13%\GamepadBus.sys
+
+[GamepadBus_Device.NT.Wdf]
+KmdfService = GamepadBus, GamepadBus_wdfsect
+
+[GamepadBus_wdfsect]
+KmdfLibraryVersion = $KMDFVERSION$
+
+[Strings]
+SPSVCINST_ASSOCSERVICE = 0x00000002
+ManufacturerName = "NimrodCore"
+DiskName = "GamepadCore Virtual Gamepad Bus Installation Disk"
+DeviceDesc = "GamepadCore Virtual Gamepad Bus"
+ServiceDesc = "GamepadCore Virtual Gamepad Bus Service"

@@ -1,0 +1,71 @@
+[Version]
+Signature="$WINDOWS NT$"
+Class=HIDClass
+ClassGuid={745A17A0-74D3-11D0-B6FE-00A0C90F57DA}
+Provider=%ManufacturerName%
+CatalogFile=GamepadFilter.cat
+DriverVer=
+PnpLockdown=1
+
+[DestinationDirs]
+DefaultDestDir = 13
+
+[SourceDisksNames]
+1 = %DiskName%,,,
+
+[SourceDisksFiles]
+GamepadFilter.sys = 1,,
+
+[Manufacturer]
+%ManufacturerName%=Standard,NTamd64.10.0...16299
+
+[Standard.NTamd64.10.0...16299]
+; xbox 360 wired
+%FilterDesc%=GamepadFilter_Install, USB\VID_045E&PID_028E
+; xbox 360 wireless receiver
+%FilterDesc%=GamepadFilter_Install, USB\VID_045E&PID_0719
+; dualshock 4 v1
+%FilterDesc%=GamepadFilter_Install, USB\VID_054C&PID_05C4
+; dualshock 4 v2
+%FilterDesc%=GamepadFilter_Install, USB\VID_054C&PID_09CC
+; dualsense
+%FilterDesc%=GamepadFilter_Install, USB\VID_054C&PID_0CE6
+; generic xbox one
+%FilterDesc%=GamepadFilter_Install, USB\VID_045E&PID_02D1
+
+; add more hardware ids as needed
+
+[GamepadFilter_Install.NT]
+CopyFiles=Filter_Dir
+
+[Filter_Dir]
+GamepadFilter.sys
+
+[GamepadFilter_Install.NT.HW]
+AddReg = GamepadFilter_AddReg
+
+[GamepadFilter_AddReg]
+HKR,,"LowerFilters",0x00010008,"GamepadFilter"
+
+[GamepadFilter_Install.NT.Services]
+AddService = GamepadFilter,,GamepadFilter_Service_Inst
+AddService = ,2  ; keep existing function driver
+
+[GamepadFilter_Service_Inst]
+DisplayName    = %ServiceDesc%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %13%\GamepadFilter.sys
+
+[GamepadFilter_Install.NT.Wdf]
+KmdfService = GamepadFilter, GamepadFilter_wdfsect
+
+[GamepadFilter_wdfsect]
+KmdfLibraryVersion = $KMDFVERSION$
+
+[Strings]
+ManufacturerName = "NimrodCore"
+DiskName = "GamepadCore Filter Installation Disk"
+FilterDesc = "GamepadCore Physical Gamepad Filter"
+ServiceDesc = "GamepadCore Gamepad Filter Service"
