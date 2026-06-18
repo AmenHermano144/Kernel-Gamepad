@@ -113,5 +113,5 @@ GamepadCore/
 ## notes
 
 - bus ↔ filter communication always goes through usermode. it gives more freedom for transformation and debugging than a kernel IPC
-- the USB descriptors and the init handshake were ported from ViGEmBus (`Z:\!NIMRODCORE\DRIVERS\SOURCES\Controller\ViGEmBus-master`), but simplified by removing DMF
+- the USB descriptors and the init handshake were ported from ViGEmBus, but simplified by removing DMF
 "# Kernel-Gamepad" 
